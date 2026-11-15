@@ -11,6 +11,14 @@ authors:
     affiliation: "10.Easy / Universidad Autónoma de Bucaramanga (UNAB)"
 repository-code: "https://github.com/dudbilopr/electrolab-10easy"
 url: "https://dudbilopr.github.io/electrolab-10easy/"
+doi: 10.5281/zenodo.24257244
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.24257244
+    description: "Concept DOI (all versions)"
+  - type: doi
+    value: 10.5281/zenodo.24257245
+    description: "Version DOI (v1.0.0)"
 license: CC-BY-NC-SA-4.0
 keywords:
   - electromagnetism

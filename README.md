@@ -1,6 +1,6 @@
 # ElectroLab10.easy — Bilingual Electromagnetism Virtual Laboratory Suite (`M1`–`M12`)
 
-<!-- ZENODO_BADGE_PLACEHOLDER -->
+[![DOI](https://zenodo.org/badge/1459155536.svg)](https://doi.org/10.5281/zenodo.24257244)
 [![CI](https://github.com/dudbilopr/electrolab-10easy/actions/workflows/ci.yml/badge.svg)](https://github.com/dudbilopr/electrolab-10easy/actions/workflows/ci.yml)
 [![Live Portal](https://img.shields.io/badge/GitHub%20Pages-Live%20Portal-0b8ca8?logo=github)](https://dudbilopr.github.io/electrolab-10easy/)
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/Simulators-CC%20BY--NC--SA%204.0-b3246b.svg)](LICENSE)
@@ -9,6 +9,7 @@
 **ElectroLab10.easy** is the unified, versioned, and citable Zenodo archive of **62 interactive HTML5 Electromagnetism simulators** (**31 in Spanish** + **31 in English**) spanning university Modules **M1 through M12** — authored by **Dudbil Olvasada Pabón Riaño** (`10.Easy` / `physics.10easy`).
 
 - **Live Bilingual Portal:** <https://dudbilopr.github.io/electrolab-10easy/>
+- **Zenodo Concept DOI (all versions):** [`10.5281/zenodo.24257244`](https://doi.org/10.5281/zenodo.24257244) · **v1.0.0 Record:** [`10.5281/zenodo.24257245`](https://zenodo.org/records/24257245)
 - **Physical Validation Matrix (`L1`–`L4`):** [`VALIDATION_MATRIX.md`](VALIDATION_MATRIX.md)
 - **Versioned Roadmap:** [`CHANGELOG.md`](CHANGELOG.md)
 
