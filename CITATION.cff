@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use ElectroLab10.easy in teaching, curriculum design, or physics education research, please cite this software release."
+title: "ElectroLab10.easy: Bilingual Electromagnetism Virtual Laboratory Suite (M1-M12)"
+type: software
+version: "1.0.0"
+date-released: "2026-11-15"
+authors:
+  - family-names: "Pabón Riaño"
+    given-names: "Dudbil Olvasada"
+    orcid: "https://orcid.org/0000-0001-7239-3497"
+    affiliation: "10.Easy / Universidad Autónoma de Bucaramanga (UNAB)"
+repository-code: "https://github.com/dudbilopr/electrolab-10easy"
+url: "https://dudbilopr.github.io/electrolab-10easy/"
+license: CC-BY-NC-SA-4.0
+keywords:
+  - electromagnetism
+  - physics education
+  - interactive simulations
+  - maxwell equations
+  - virtual laboratory
+  - html5 canvas
+  - bilingual education
+  - 10.Easy

@@ -1,0 +1,14 @@
+[project]
+name = "electrolab-10easy"
+version = "1.0.0"
+description = "ElectroLab10.easy — Bilingual (ES/EN) 62-simulator Electromagnetism virtual laboratory suite with L1-L4 physical validation roadmap"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+  { name = "Dudbil Olvasada Pabón Riaño" }
+]
+license = "CC-BY-NC-SA-4.0"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v"

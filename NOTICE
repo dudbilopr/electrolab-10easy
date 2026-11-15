@@ -1,0 +1,27 @@
+ElectroLab10.easy — Bilingual Electromagnetism Virtual Laboratory Suite (M1–M12)
+Copyright (c) 2026 Dudbil Olvasada Pabón Riaño
+Brand & Educational Platform: 10.Easy (physics.10easy)
+ORCID: https://orcid.org/0000-0001-7239-3497
+Repository: https://github.com/dudbilopr/electrolab-10easy
+
+LICENSE & COMMERCIAL RIGHTS NOTICE:
+1. All interactive HTML5 simulators (simulators/es/*, simulators/en/*), the
+   portal UI (index.html), and visual/pedagogical assets are licensed under
+   CC BY-NC-SA 4.0. Commercial redistribution, paid SaaS wrapping, or
+   proprietary courseware resale requires explicit written permission from
+   Dudbil Olvasada Pabón Riaño (10.Easy).
+2. Automated verification tests and CI scripts (tests/, pyproject.toml,
+   .github/workflows/) are licensed under Apache-2.0.
+3. Co-authorship & Versioning Policy:
+   - Version v1.0.0 establishes the archived baseline precedent of all 62
+     standalone Electromagnetism simulators (31 ES + 31 EN) authored by
+     Dudbil Olvasada Pabón Riaño.
+   - Future contributors (graduate/undergraduate students or collaborators who
+     complete verified L2–L4 physical validations, translation audits, or
+     numerical solver modules) are added to CITATION.cff and .zenodo.json in
+     tagged minor/major releases (v1.1.0+) strictly upon verified delivery.
+
+RELATED 10.EASY RESEARCH & INSTRUMENTATION ECOSYSTEM:
+- holom-core (Apache-2.0): https://doi.org/10.5281/zenodo.24255654
+- HoloLab10.easy (CC BY-NC-SA 4.0): https://doi.org/10.5281/zenodo.24255658
+- MuellerLab10.easy (Apache-2.0 / CERN-OHL-S v2 / CC BY-NC-SA 4.0): https://doi.org/10.5281/zenodo.24256277

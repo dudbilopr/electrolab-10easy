@@ -1,0 +1,49 @@
+{
+  "title": "ElectroLab10.easy: Bilingual Electromagnetism Virtual Laboratory Suite (M1–M12)",
+  "upload_type": "software",
+  "version": "1.0.0",
+  "description": "<p><strong>ElectroLab10.easy</strong> archives and serves 62 standalone HTML5 interactive virtual laboratories (31 in Spanish and 31 paired modules in English) spanning Modules M1 through M12 of university-level Electromagnetism: Coulomb's Law, continuous charge distributions, Gauss's Law, electric potential and equipotentials, capacitance, DC circuits and resistivity, Lorentz force, Biot-Savart law, Ampère's law, Faraday's induction, Maxwell's equations & EM waves, and RLC/LC/phasor oscillations.</p><p>Release <strong>v1.0.0</strong> establishes a permanent, citable precedent baseline under <code>CC BY-NC-SA 4.0</code> (automated verification suite under <code>Apache-2.0</code>) together with an explicit 4-level physical validation roadmap (<code>VALIDATION_MATRIX.md</code>) covering analytical conservation checks, numerical convergence, and <code>10.Easy</code> Plasma UI harmonization for subsequent minor releases.</p>",
+  "creators": [
+    {
+      "name": "Pabón Riaño, Dudbil Olvasada",
+      "affiliation": "10.Easy / Universidad Autónoma de Bucaramanga (UNAB)",
+      "orcid": "0000-0001-7239-3497"
+    }
+  ],
+  "license": "cc-by-nc-sa-4.0",
+  "access_right": "open",
+  "keywords": [
+    "Electromagnetism",
+    "Physics Education Research",
+    "Virtual Laboratory",
+    "Interactive Simulations",
+    "Maxwell Equations",
+    "Coulomb Law",
+    "Biot-Savart",
+    "Faraday Induction",
+    "HTML5",
+    "10.Easy"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://dudbilopr.github.io/electrolab-10easy/",
+      "relation": "isDocumentedBy",
+      "scheme": "url"
+    },
+    {
+      "identifier": "10.5281/zenodo.24255654",
+      "relation": "isSupplementTo",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.5281/zenodo.24255658",
+      "relation": "isSupplementTo",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.5281/zenodo.24256277",
+      "relation": "isSupplementTo",
+      "scheme": "doi"
+    }
+  ]
+}

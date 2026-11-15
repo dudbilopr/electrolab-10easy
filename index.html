@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ElectroLab10.easy — Electromagnetism Virtual Laboratory Suite (M1–M12)</title>
+  <meta name="description" content="Bilingual (ES/EN) 62-simulator Electromagnetism virtual laboratory suite covering Modules M1-M12 under CC BY-NC-SA 4.0 by Dudbil Olvasada Pabón Riaño (10.Easy).">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23b3246b'/%3E%3Cstop offset='100%25' stop-color='%230b8ca8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='%23090d16'/%3E%3Crect x='2' y='2' width='60' height='60' rx='12' fill='none' stroke='url(%23g)' stroke-width='2.5'/%3E%3Cpath d='M36 12L20 34h12l-4 18 16-22H32l4-18z' fill='url(%23g)'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg-0: #070b14;
+      --bg-1: #0d1322;
+      --bg-card: rgba(16, 24, 42, 0.86);
+      --border: rgba(148, 163, 184, 0.16);
+      --plasma-pink: #b3246b;
+      --plasma-pink-bright: #e03e8c;
+      --plasma-cyan: #0b8ca8;
+      --plasma-cyan-bright: #22d3ee;
+      --ok-green: #10b981;
+      --warn-amber: #f59e0b;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-sans);
+      background:
+        radial-gradient(900px 500px at 10% -5%, rgba(179, 36, 107, 0.22), transparent 60%),
+        radial-gradient(800px 460px at 92% 4%, rgba(11, 140, 168, 0.22), transparent 60%),
+        var(--bg-0);
+      color: var(--text-main);
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+
+    a { color: var(--plasma-cyan-bright); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    /* Header */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(14px);
+      background: rgba(7, 11, 20, 0.84);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.85rem 0;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--plasma-pink), var(--plasma-cyan));
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: #fff;
+      box-shadow: 0 0 22px rgba(179, 36, 107, 0.35);
+    }
+
+    .brand-title {
+      font-size: 1.18rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-title span {
+      background: linear-gradient(90deg, var(--plasma-pink-bright), var(--plasma-cyan-bright));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .brand-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px;
+    }
+
+    .lang-btn {
+      border: 0;
+      background: transparent;
+      color: var(--text-muted);
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+
+    .lang-btn.active {
+      background: linear-gradient(135deg, var(--plasma-pink), var(--plasma-cyan));
+      color: #fff;
+    }
+
+    .pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 0.36rem 0.72rem;
+      border-radius: 999px;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      background: rgba(16, 185, 129, 0.12);
+      color: #6ee7b7;
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--ok-green);
+      box-shadow: 0 0 8px var(--ok-green);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 2.5rem 0 1.75rem;
+      display: grid;
+      grid-template-columns: 1.45fr 1fr;
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+
+    @media (max-width: 920px) {
+      .hero { grid-template-columns: 1fr; }
+    }
+
+    .hero-card, .roadmap-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 1.6rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-kicker {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--plasma-cyan-bright);
+      margin-bottom: 0.55rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.65rem, 3vw, 2.35rem);
+      line-height: 1.18;
+      font-weight: 800;
+      margin-bottom: 0.85rem;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 0.96rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .stat-box {
+      background: rgba(7, 11, 20, 0.65);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.7rem 0.8rem;
+    }
+
+    .stat-val {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .stat-lbl {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* Validation Roadmap Panel */
+    .roadmap-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .roadmap-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .roadmap-item {
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 0.58rem 0.75rem;
+      background: rgba(7, 11, 20, 0.55);
+      font-size: 0.8rem;
+    }
+
+    .roadmap-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      font-weight: 700;
+      margin-bottom: 0.15rem;
+    }
+
+    .tag-done {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      padding: 0.12rem 0.48rem;
+      border-radius: 6px;
+      background: rgba(16, 185, 129, 0.16);
+      color: #6ee7b7;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+
+    .tag-next {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      padding: 0.12rem 0.48rem;
+      border-radius: 6px;
+      background: rgba(11, 140, 168, 0.16);
+      color: #67e8f9;
+      border: 1px solid rgba(11, 140, 168, 0.35);
+    }
+
+    .roadmap-desc { color: var(--text-muted); font-size: 0.76rem; }
+
+    .roadmap-links {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 0.85rem;
+      font-size: 0.78rem;
+    }
+
+    /* Controls */
+    .controls {
+      margin: 0.75rem 0 1.25rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1rem 1.15rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .search-row {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .search-input {
+      flex: 1 1 260px;
+      background: rgba(7, 11, 20, 0.82);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 0.62rem 0.9rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--plasma-cyan-bright);
+      box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.14);
+    }
+
+    .count-indicator {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .module-pills {
+      display: flex;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+    }
+
+    .mod-pill {
+      border: 1px solid var(--border);
+      background: rgba(7, 11, 20, 0.7);
+      color: var(--text-muted);
+      padding: 0.34rem 0.68rem;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .mod-pill:hover {
+      border-color: var(--plasma-cyan);
+      color: var(--text-main);
+    }
+
+    .mod-pill.active {
+      background: linear-gradient(135deg, var(--plasma-pink), var(--plasma-cyan));
+      border-color: transparent;
+      color: #fff;
+    }
+
+    /* Simulator Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .sim-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.85rem;
+      transition: transform 0.16s ease, border-color 0.16s ease;
+    }
+
+    .sim-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(34, 211, 238, 0.45);
+    }
+
+    .sim-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .mod-chip {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.18rem 0.55rem;
+      border-radius: 7px;
+      background: rgba(179, 36, 107, 0.22);
+      border: 1px solid rgba(224, 62, 140, 0.38);
+      color: #f9a8d4;
+    }
+
+    .val-chip {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: #6ee7b7;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.28);
+      padding: 0.14rem 0.48rem;
+      border-radius: 6px;
+    }
+
+    .sim-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0.45rem 0 0.25rem;
+    }
+
+    .sim-invariant {
+      font-size: 0.79rem;
+      color: var(--text-muted);
+    }
+
+    .sim-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.55rem;
+      padding-top: 0.4rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.1);
+    }
+
+    .launch-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      padding: 0.48rem 0.65rem;
+      border-radius: 9px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border: 1px solid var(--border);
+      background: rgba(7, 11, 20, 0.75);
+      color: var(--text-main);
+      transition: all 0.15s ease;
+    }
+
+    .launch-btn:hover {
+      text-decoration: none;
+      border-color: var(--plasma-cyan-bright);
+    }
+
+    .launch-btn.primary {
+      background: linear-gradient(135deg, rgba(179, 36, 107, 0.9), rgba(11, 140, 168, 0.9));
+      border-color: transparent;
+      color: #fff;
+    }
+
+    /* Footer / Credits */
+    #credits {
+      border-top: 1px solid var(--border);
+      background: rgba(7, 11, 20, 0.78);
+      padding: 1.75rem 0 2.5rem;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+    }
+
+    .credits-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 760px) {
+      .credits-grid { grid-template-columns: 1fr; }
+    }
+
+    .credits-title {
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .eco-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.45rem;
+    }
+
+    .eco-pill {
+      font-size: 0.76rem;
+      padding: 0.28rem 0.62rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg-1);
+      color: var(--plasma-cyan-bright);
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <div class="brand-logo" aria-hidden="true">E&amp;B</div>
+        <div>
+          <div class="brand-title">ElectroLab<span>10.easy</span></div>
+          <div class="brand-sub" id="subhead">Suite Bilingüe de Laboratorios Virtuales de Electromagnetismo (M1–M12)</div>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <span class="pill-badge" title="Automated Structural CI Status">
+          <span class="pill-dot"></span>
+          <span id="ci-pill">L1 Verificado · 62/62 HTML5</span>
+        </span>
+        <div class="lang-switch" role="group" aria-label="Language switcher">
+          <button type="button" class="lang-btn active" id="btn-es" onclick="setLang('es')">ES</button>
+          <button type="button" class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-card">
+        <div class="hero-kicker" id="hero-kicker">ZENODO PRECEDENT ARCHIVE · v1.0.0 · CC BY-NC-SA 4.0</div>
+        <h1 id="hero-title">62 Simuladores Interactivos de Electromagnetismo en Español e Inglés</h1>
+        <p id="hero-desc">
+          Archivo abierto y versionado de laboratorios virtuales HTML5 desde Ley de Coulomb (M1) hasta Ecuaciones de Maxwell y Resonancia RLC (M12), con ruta pública de validaciones físicas (L1–L4) y trazabilidad bajo DOI en Zenodo.
+        </p>
+        <div class="hero-stats">
+          <div class="stat-box">
+            <div class="stat-val">62</div>
+            <div class="stat-lbl" id="stat-1">Simuladores Totales</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val">31 + 31</div>
+            <div class="stat-lbl" id="stat-2">Pares ES / EN</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val">M1–M12</div>
+            <div class="stat-lbl" id="stat-3">Cobertura Completa</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val">L1 → L4</div>
+            <div class="stat-lbl" id="stat-4">Ruta de Validación</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="roadmap-card">
+        <div class="roadmap-title">
+          <span id="roadmap-heading">Hoja de Ruta de Actualizaciones y Validaciones</span>
+        </div>
+        <div class="roadmap-list">
+          <div class="roadmap-item">
+            <div class="roadmap-row">
+              <span>v1.0.0 · L1 Structural CI</span>
+              <span class="tag-done" id="tag-l1">ACTIVO</span>
+            </div>
+            <div class="roadmap-desc" id="desc-l1">62 HTML5 autónomos verificados con pytest + enlace 1:1 portal y Zenodo Concept DOI.</div>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-row">
+              <span>v1.1.0 · L2 i18n &amp; Plasma UI</span>
+              <span class="tag-next" id="tag-l2">SIGUIENTE</span>
+            </div>
+            <div class="roadmap-desc" id="desc-l2">Depuración tipográfica de títulos EN heredados y unificación de footer Plasma 10.Easy.</div>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-row">
+              <span>v1.2.0 · L3 Invariantes Físicos</span>
+              <span class="tag-next" id="tag-l3">EN COLA</span>
+            </div>
+            <div class="roadmap-desc" id="desc-l3">Pruebas numéricas contra soluciones analíticas (Gauss, Biot-Savart, Lorentz, RLC).</div>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-row">
+              <span>v2.0.0 · L4 HUD &amp; Lab Benchmarks</span>
+              <span class="tag-next" id="tag-l4">FUTURO</span>
+            </div>
+            <div class="roadmap-desc" id="desc-l4">Indicadores de autoverificación en vivo y datos experimentales con coautores verificados.</div>
+          </div>
+        </div>
+        <div class="roadmap-links">
+          <a href="https://github.com/dudbilopr/electrolab-10easy/blob/main/VALIDATION_MATRIX.md" target="_blank" rel="noopener">VALIDATION_MATRIX.md ↗</a>
+          <a href="https://github.com/dudbilopr/electrolab-10easy/blob/main/CHANGELOG.md" target="_blank" rel="noopener">CHANGELOG.md ↗</a>
+          <a href="https://github.com/dudbilopr/electrolab-10easy" target="_blank" rel="noopener">GitHub Repo ↗</a>
+        </div>
+      </aside>
+    </section>
+
+    <section class="controls" aria-label="Filters">
+      <div class="search-row">
+        <input id="searchBox" class="search-input" type="search" placeholder="Buscar por fenómeno, archivo o módulo (ej. Gauss, Biot-Savart, RLC)..." oninput="renderGrid()">
+        <span class="count-indicator" id="countIndicator">Mostrando 31 pares (62 HTML)</span>
+      </div>
+      <div class="module-pills" id="modulePills"></div>
+    </section>
+
+    <section class="grid" id="simGrid" aria-live="polite"></section>
+  </main>
+
+  <footer id="credits">
+    <div class="container credits-grid">
+      <div>
+        <div class="credits-title">10.Easy (physics.10easy) — Dudbil Olvasada Pabón Riaño</div>
+        <p id="credits-desc">
+          Simuladores e interfaz licenciados bajo <strong>CC BY-NC-SA 4.0</strong> (uso educativo y académico no comercial con atribución). Suite automatizada de verificación bajo Apache-2.0.
+          ORCID: <a href="https://orcid.org/0000-0001-7239-3497" target="_blank" rel="noopener">0000-0001-7239-3497</a>.
+        </p>
+      </div>
+      <div>
+        <div class="credits-title" id="eco-heading">Ecosistema Científico &amp; Hardware 10.Easy</div>
+        <div class="eco-links">
+          <a class="eco-pill" href="https://github.com/dudbilopr/electrolab-10easy" target="_blank" rel="noopener">ElectroLab10.easy</a>
+          <a class="eco-pill" href="https://doi.org/10.5281/zenodo.24255654" target="_blank" rel="noopener">holom-core DOI</a>
+          <a class="eco-pill" href="https://doi.org/10.5281/zenodo.24255658" target="_blank" rel="noopener">HoloLab10.easy DOI</a>
+          <a class="eco-pill" href="https://doi.org/10.5281/zenodo.24256277" target="_blank" rel="noopener">MuellerLab10.easy DOI</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const MODULE_NAMES = {
+      es: {
+        ALL: "Todos (31)",
+        M1: "M1 · Coulomb",
+        M2: "M2 · Distribuciones",
+        M3: "M3 · Gauss",
+        M4: "M4 · Potencial",
+        M5: "M5 · Capacitancia",
+        M6: "M6 · Circuitos DC",
+        M7: "M7 · Lorentz",
+        M8: "M8 · Biot-Savart",
+        M9: "M9 · Ampère",
+        M10: "M10 · Faraday",
+        M11: "M11 · Maxwell/Onda",
+        M12: "M12 · RLC/Fasores"
+      },
+      en: {
+        ALL: "All (31)",
+        M1: "M1 · Coulomb",
+        M2: "M2 · Distributions",
+        M3: "M3 · Gauss",
+        M4: "M4 · Potential",
+        M5: "M5 · Capacitance",
+        M6: "M6 · DC Circuits",
+        M7: "M7 · Lorentz",
+        M8: "M8 · Biot-Savart",
+        M9: "M9 · Ampère",
+        M10: "M10 · Faraday",
+        M11: "M11 · Maxwell/Waves",
+        M12: "M12 · RLC/Phasors"
+      }
+    };
+
+    const SIMULATORS = [
+      { m: "M1", esTitle: "Cargas Puntuales Pro", enTitle: "Point Charges Pro", esPath: "simulators/es/Sim_M1_Cargas.html", enPath: "simulators/en/Sim_M1_Charges.html", invEs: "Superposición vectorial 2D/3D y simetría acción-reacción", invEn: "2D/3D vector superposition and action-reaction symmetry" },
+      { m: "M1", esTitle: "Coulomb Básico (IA Physics)", enTitle: "Coulomb Basic (IA Physics)", esPath: "simulators/es/Sim_M1_Coulomb_Basico.html", enPath: "simulators/en/Sim_M1_Coulomb_Basic.html", invEs: "Escalamiento 1/r² con constante k_e = 8.98755e9 N·m²/C²", invEn: "1/r² scaling with k_e = 8.98755e9 N·m²/C²" },
+      { m: "M1", esTitle: "Laboratorio Maestro: Ley de Coulomb Pro", enTitle: "Master Lab: Coulomb's Law Pro", esPath: "simulators/es/Sim_M1_Coulomb_Pro.html", enPath: "simulators/en/Sim_M1_Coulomb_Pro.html", invEs: "Equilibrio multicarga y descomposición de fuerzas", invEn: "Multi-charge equilibrium and force decomposition" },
+
+      { m: "M2", esTitle: "Campo Eléctrico: Eje de un Anillo", enTitle: "Electric Field: Ring Axis", esPath: "simulators/es/Sim_M2_Anillo.html", enPath: "simulators/en/Sim_M2_Ring.html", invEs: "E_z(0)=0 y límite asintótico de carga puntual z >> R", invEn: "E_z(0)=0 and point-charge asymptotic limit z >> R" },
+      { m: "M2", esTitle: "Campo Eléctrico: Arco Cargado", enTitle: "Electric Field: Charged Arc", esPath: "simulators/es/Sim_M2_Arco.html", enPath: "simulators/en/Sim_M2_Arc.html", invEs: "Integración angular lineal por elemento dq = λ R dθ", invEn: "Linear angular integration over dq = λ R dθ" },
+      { m: "M2", esTitle: "Campo Vectorial Eléctrico", enTitle: "Electric Vector Field Lab", esPath: "simulators/es/Sim_M2_Campo_Vectorial.html", enPath: "simulators/en/Sim_M2_Vector_Field.html", invEs: "Mapeo vectorial y regularización de singularidades", invEn: "Vector field mapping and near-field regularization" },
+      { m: "M2", esTitle: "Campo Eléctrico: Eje de un Cilindro", enTitle: "Electric Field: Cylinder Axis", esPath: "simulators/es/Sim_M2_Cilindro.html", enPath: "simulators/en/Sim_M2_Cylinder.html", invEs: "Superposición axial de discos diferenciales", invEn: "Axial superposition of differential disks" },
+      { m: "M2", esTitle: "Campo Eléctrico: Eje de un Disco", enTitle: "Electric Field: Disk Axis", esPath: "simulators/es/Sim_M2_Disco.html", enPath: "simulators/en/Sim_M2_Disk.html", invEs: "Convergencia a plano infinito σ/(2ε₀) para R -> ∞", invEn: "Convergence to infinite plane σ/(2ε₀) as R -> ∞" },
+      { m: "M2", esTitle: "Campo Eléctrico: Anillo Semicircular", enTitle: "Electric Field: Semicircular Ring", esPath: "simulators/es/Sim_M2_Semicirculo.html", enPath: "simulators/en/Sim_M2_Semicircle.html", invEs: "Cancelación transversal y fuerza neta sobre eje bisector", invEn: "Transverse cancellation and net field on bisector axis" },
+      { m: "M2", esTitle: "Tablero: Anillo, Disco y Cilindro", enTitle: "Board: Ring, Disk & Cylinder", esPath: "simulators/es/Sim_M2_Tablero_Distribuciones.html", enPath: "simulators/en/Sim_M2_Board_Distributions.html", invEs: "Comparación unificada de geometrías continuas 3D", invEn: "Unified comparison of continuous 3D geometries" },
+      { m: "M2", esTitle: "Tablero: Líneas y Distribuciones", enTitle: "Board: Charge Distributions", esPath: "simulators/es/Sim_M2_Tablero_Lineas.html", enPath: "simulators/en/Sim_M2_Board_Lines.html", invEs: "Líneas de campo proporcionales a densidad de flujo", invEn: "Field lines proportional to local flux density" },
+      { m: "M2", esTitle: "Campo Eléctrico: Varilla Cargada", enTitle: "Electric Field: Charged Rod", esPath: "simulators/es/Sim_M2_Varilla.html", enPath: "simulators/en/Sim_M2_Rod.html", invEs: "Límite 2k_e λ/r para varilla infinita y decaimiento lejano", invEn: "2k_e λ/r infinite-rod limit and far-field decay" },
+
+      { m: "M3", esTitle: "Flujo Eléctrico y Ley de Gauss Pro", enTitle: "Electric Flux & Gauss's Law Pro", esPath: "simulators/es/Sim_M3_Flujo.html", enPath: "simulators/en/Sim_M3_Flux.html", invEs: "Invariancia de Φ_E = Q_enc / ε₀ frente al radio gaussiano", invEn: "Invariance of Φ_E = Q_enc / ε₀ across Gaussian radius" },
+      { m: "M3", esTitle: "Tabla Interactiva: Ley de Gauss", enTitle: "Interactive Gauss's Law Table", esPath: "simulators/es/Sim_M3_Tabla_Gauss.html", enPath: "simulators/en/Sim_M3_Gauss_Table.html", invEs: "Simetrías esférica, cilíndrica y planar interior/exterior", invEn: "Spherical, cylindrical & planar inside/outside symmetry" },
+
+      { m: "M4", esTitle: "Equipotenciales y Trabajo Eléctrico", enTitle: "Equipotentials & Electric Work", esPath: "simulators/es/Sim_M4_Equipotenciales.html", enPath: "simulators/en/Sim_M4_Equipotentials.html", invEs: "Ortogonalidad E ⟂ ΔV y trabajo conservativo W = qΔV", invEn: "Orthogonality E ⟂ ΔV and conservative work W = qΔV" },
+      { m: "M4", esTitle: "Superficies de Potencial Eléctrico 3D", enTitle: "3D Electric Potential Surfaces", esPath: "simulators/es/Sim_M4_Potencial_3D.html", enPath: "simulators/en/Sim_M4_Potential_3D.html", invEs: "Topografía escalar V(x,y) = Σ k_e q_i / r_i", invEn: "Scalar topography V(x,y) = Σ k_e q_i / r_i" },
+
+      { m: "M5", esTitle: "Capacitancia y Dieléctricos", enTitle: "Capacitance & Dielectrics", esPath: "simulators/es/Sim_M5_Capacitancia.html", enPath: "simulators/en/Sim_M5_Capacitance.html", invEs: "C = κε₀A/d y balance energético con/sin fuente conectada", invEn: "C = κε₀A/d and energy balance isolated vs. battery-linked" },
+
+      { m: "M6", esTitle: "Circuitos DC y Leyes de Kirchhoff", enTitle: "DC Circuits & Kirchhoff's Laws", esPath: "simulators/es/Sim_M6_CircuitoDC.html", enPath: "simulators/en/Sim_M6_DC_Circuit.html", invEs: "Conservación nodal ΣI = 0 y de malla ΣΔV = 0", invEn: "Node current ΣI = 0 and loop voltage ΣΔV = 0 conservation" },
+      { m: "M6", esTitle: "Resistividad y Ley de Pouillet", enTitle: "Resistivity (Pouillet's Law)", esPath: "simulators/es/Sim_M6_Resistividad.html", enPath: "simulators/en/Sim_M6_Resistivity.html", invEs: "Escalamiento geométrico R = ρ L / A y materiales", invEn: "Geometric scaling R = ρ L / A across materials" },
+
+      { m: "M7", esTitle: "Fuerza de Lorentz y Ciclotrón", enTitle: "Lorentz Force & Cyclotron", esPath: "simulators/es/Sim_M7_Lorentz.html", enPath: "simulators/en/Sim_M7_Lorentz.html", invEs: "Conservación de rapidez |v| en B puro y radio mv/(|q|B)", invEn: "Speed conservation |v| in pure B and radius mv/(|q|B)" },
+
+      { m: "M8", esTitle: "Ley de Biot-Savart: Espira Circular", enTitle: "Biot-Savart Law: Circular Loop", esPath: "simulators/es/Sim_M8_BiotSavart_Anillo.html", enPath: "simulators/en/Sim_M8_Biot_Savart_Ring.html", invEs: "Campo central B(0) = μ₀I/(2R) y decaimiento dipolar z⁻³", invEn: "Center field B(0) = μ₀I/(2R) and z⁻³ dipole tail" },
+      { m: "M8", esTitle: "Ley de Biot-Savart: Hilo Recto", enTitle: "Biot-Savart Law: Straight Wire", esPath: "simulators/es/Sim_M8_BiotSavart_Hilo.html", enPath: "simulators/en/Sim_M8_Biot_Savart_Wire.html", invEs: "Límite de hilo infinito B = μ₀I/(2πr) y regla mano derecha", invEn: "Infinite-wire limit B = μ₀I/(2πr) and right-hand rule" },
+
+      { m: "M9", esTitle: "Ley de Ampère: Solenoide", enTitle: "Ampère's Law: Solenoid", esPath: "simulators/es/Sim_M9_Solenoide.html", enPath: "simulators/en/Sim_M9_Solenoid.html", invEs: "Uniformidad interior B = μ₀ n I e invariancia amperiana", invEn: "Interior uniformity B = μ₀ n I and Ampèrian loop check" },
+      { m: "M9", esTitle: "Tabla Interactiva: Ley de Ampère", enTitle: "Interactive Ampère's Law Table", esPath: "simulators/es/Sim_M9_Tabla_Ampere.html", enPath: "simulators/en/Sim_M9_Ampere_Table.html", invEs: "Simetrías de hilo, lámina, solenoide y toroide", invEn: "Wire, sheet, solenoid & toroid symmetry integrals" },
+
+      { m: "M10", esTitle: "Inducción de Faraday: FEM de Movimiento", enTitle: "Faraday Induction: Motional EMF", esPath: "simulators/es/Sim_M10_FEM_Movimiento.html", enPath: "simulators/en/Sim_M10_Motional_EMF.html", invEs: "ε = B L v y balance mecánico-eléctrico P = ε²/R", invEn: "ε = B L v and mechanical-electrical balance P = ε²/R" },
+      { m: "M10", esTitle: "Flujo Magnético y Ley de Lenz", enTitle: "Magnetic Flux & Lenz's Law", esPath: "simulators/es/Sim_M10_FlujoMagnetico.html", enPath: "simulators/en/Sim_M10_Magnetic_Flux.html", invEs: "Signo opositor de Lenz frente a dΦ_B/dt", invEn: "Lenz opposition sign against dΦ_B/dt" },
+
+      { m: "M11", esTitle: "Tabla Interactiva: Ecuaciones de Maxwell", enTitle: "Interactive Maxwell's Equations Table", esPath: "simulators/es/Sim_M11_EcuacionesMaxwell.html", enPath: "simulators/en/Sim_M11_Maxwell_Equations.html", invEs: "Forma diferencial e integral + corriente de desplazamiento", invEn: "Differential & integral forms + displacement current" },
+      { m: "M11", esTitle: "Onda Electromagnética 3D", enTitle: "3D Electromagnetic Wave", esPath: "simulators/es/Sim_M11_OndaEM.html", enPath: "simulators/en/Sim_M11_EM_Wave.html", invEs: "Ortogonalidad E ⟂ B ⟂ k, razón E/B = c y vector Poynting", invEn: "Orthogonality E ⟂ B ⟂ k, E/B = c and Poynting flux" },
+
+      { m: "M12", esTitle: "Diagrama de Fasores AC", enTitle: "AC Phasor Diagram", esPath: "simulators/es/Sim_M12_Fasores.html", enPath: "simulators/en/Sim_M12_Phasors.html", invEs: "Ángulo de fase tan(φ) = (X_L - X_C)/R y suma vectorial", invEn: "Phase angle tan(φ) = (X_L - X_C)/R and vector sum" },
+      { m: "M12", esTitle: "Oscilador LC Ideal y Amortiguado", enTitle: "LC Ideal & Damped Oscillator", esPath: "simulators/es/Sim_M12_OsciladorLC.html", enPath: "simulators/en/Sim_M12_LC_Oscillator.html", invEs: "Conservación energética ½LI² + ½Q²/C y ω₀ = 1/√(LC)", invEn: "Energy exchange ½LI² + ½Q²/C and ω₀ = 1/√(LC)" },
+      { m: "M12", esTitle: "Resonancia en Circuito RLC", enTitle: "RLC Circuit Resonance", esPath: "simulators/es/Sim_M12_RLC.html", enPath: "simulators/en/Sim_M12_RLC.html", invEs: "Pico de corriente en ω = ω₀, factor Q y ancho de banda", invEn: "Resonant current peak at ω = ω₀, Q-factor & bandwidth" }
+    ];
+
+    const UI_COPY = {
+      es: {
+        subhead: "Suite Bilingüe de Laboratorios Virtuales de Electromagnetismo (M1–M12)",
+        ciPill: "L1 Verificado · 62/62 HTML5",
+        kicker: "ZENODO PRECEDENT ARCHIVE · v1.0.0 · CC BY-NC-SA 4.0",
+        heroTitle: "62 Simuladores Interactivos de Electromagnetismo en Español e Inglés",
+        heroDesc: "Archivo abierto y versionado de laboratorios virtuales HTML5 desde Ley de Coulomb (M1) hasta Ecuaciones de Maxwell y Resonancia RLC (M12), con ruta pública de validaciones físicas (L1–L4) y trazabilidad bajo DOI en Zenodo.",
+        s1: "Simuladores Totales",
+        s2: "Pares ES / EN",
+        s3: "Cobertura Completa",
+        s4: "Ruta de Validación",
+        roadmapHeading: "Hoja de Ruta de Actualizaciones y Validaciones",
+        tagL1: "ACTIVO",
+        tagL2: "SIGUIENTE",
+        tagL3: "EN COLA",
+        tagL4: "FUTURO",
+        descL1: "62 HTML5 autónomos verificados con pytest + enlace 1:1 portal y Zenodo Concept DOI.",
+        descL2: "Depuración tipográfica de títulos EN heredados y unificación de footer Plasma 10.Easy.",
+        descL3: "Pruebas numéricas contra soluciones analíticas (Gauss, Biot-Savart, Lorentz, RLC).",
+        descL4: "Indicadores de autoverificación en vivo y datos experimentales con coautores verificados.",
+        searchPlaceholder: "Buscar por fenómeno, archivo o módulo (ej. Gauss, Biot-Savart, RLC)...",
+        creditsDesc: 'Simuladores e interfaz licenciados bajo <strong>CC BY-NC-SA 4.0</strong> (uso educativo y académico no comercial con atribución). Suite automatizada de verificación bajo Apache-2.0. ORCID: <a href="https://orcid.org/0000-0001-7239-3497" target="_blank" rel="noopener">0000-0001-7239-3497</a>.',
+        ecoHeading: "Ecosistema Científico & Hardware 10.Easy",
+        openEs: "Abrir ES ↗",
+        openEn: "Abrir EN ↗",
+        showing: (pairs, htmls) => `Mostrando ${pairs} pares (${htmls} HTML)`
+      },
+      en: {
+        subhead: "Bilingual Electromagnetism Virtual Laboratory Suite (M1–M12)",
+        ciPill: "L1 Verified · 62/62 HTML5",
+        kicker: "ZENODO PRECEDENT ARCHIVE · v1.0.0 · CC BY-NC-SA 4.0",
+        heroTitle: "62 Interactive Electromagnetism Simulators in Spanish & English",
+        heroDesc: "Open, versioned HTML5 virtual laboratory archive spanning Coulomb's Law (M1) through Maxwell's Equations & RLC Resonance (M12), complete with a public physical validation roadmap (L1–L4) and Zenodo DOI lineage.",
+        s1: "Total Simulators",
+        s2: "ES / EN Pairs",
+        s3: "Full Coverage",
+        s4: "Validation Path",
+        roadmapHeading: "Updates & Physical Validation Roadmap",
+        tagL1: "ACTIVE",
+        tagL2: "NEXT",
+        tagL3: "QUEUED",
+        tagL4: "FUTURE",
+        descL1: "62 self-contained HTML5 sims verified via pytest + 1:1 portal wiring and Zenodo Concept DOI.",
+        descL2: "Clean up legacy escaped EN strings and harmonize 10.Easy Plasma footers & favicons.",
+        descL3: "Numerical benchmarks against analytical invariants (Gauss, Biot-Savart, Lorentz, RLC).",
+        descL4: "Live in-canvas self-verification HUDs & lab datasets with verified co-authors.",
+        searchPlaceholder: "Search by phenomenon, filename, or module (e.g., Gauss, Biot-Savart, RLC)...",
+        creditsDesc: 'Simulators and portal UI licensed under <strong>CC BY-NC-SA 4.0</strong> (non-commercial academic & educational use with attribution). Automated verification suite under Apache-2.0. ORCID: <a href="https://orcid.org/0000-0001-7239-3497" target="_blank" rel="noopener">0000-0001-7239-3497</a>.',
+        ecoHeading: "10.Easy Open-Science & Hardware Ecosystem",
+        openEs: "Launch ES ↗",
+        openEn: "Launch EN ↗",
+        showing: (pairs, htmls) => `Showing ${pairs} pairs (${htmls} HTML)`
+      }
+    };
+
+    let currentLang = "es";
+    let activeMod = "ALL";
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      document.getElementById("btn-es").classList.toggle("active", lang === "es");
+      document.getElementById("btn-en").classList.toggle("active", lang === "en");
+
+      const c = UI_COPY[lang];
+      document.getElementById("subhead").textContent = c.subhead;
+      document.getElementById("ci-pill").textContent = c.ciPill;
+      document.getElementById("hero-kicker").textContent = c.kicker;
+      document.getElementById("hero-title").textContent = c.heroTitle;
+      document.getElementById("hero-desc").textContent = c.heroDesc;
+      document.getElementById("stat-1").textContent = c.s1;
+      document.getElementById("stat-2").textContent = c.s2;
+      document.getElementById("stat-3").textContent = c.s3;
+      document.getElementById("stat-4").textContent = c.s4;
+      document.getElementById("roadmap-heading").textContent = c.roadmapHeading;
+      document.getElementById("tag-l1").textContent = c.tagL1;
+      document.getElementById("tag-l2").textContent = c.tagL2;
+      document.getElementById("tag-l3").textContent = c.tagL3;
+      document.getElementById("tag-l4").textContent = c.tagL4;
+      document.getElementById("desc-l1").textContent = c.descL1;
+      document.getElementById("desc-l2").textContent = c.descL2;
+      document.getElementById("desc-l3").textContent = c.descL3;
+      document.getElementById("desc-l4").textContent = c.descL4;
+      document.getElementById("searchBox").placeholder = c.searchPlaceholder;
+      document.getElementById("credits-desc").innerHTML = c.creditsDesc;
+      document.getElementById("eco-heading").textContent = c.ecoHeading;
+
+      renderPills();
+      renderGrid();
+    }
+
+    function setModule(mod) {
+      activeMod = mod;
+      renderPills();
+      renderGrid();
+    }
+
+    function renderPills() {
+      const container = document.getElementById("modulePills");
+      const labels = MODULE_NAMES[currentLang];
+      const mods = ["ALL", "M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "M10", "M11", "M12"];
+      container.innerHTML = mods.map((m) =>
+        `<button type="button" class="mod-pill ${activeMod === m ? "active" : ""}" onclick="setModule('${m}')">${labels[m]}</button>`
+      ).join("");
+    }
+
+    function renderGrid() {
+      const query = document.getElementById("searchBox").value.trim().toLowerCase();
+      const c = UI_COPY[currentLang];
+      const filtered = SIMULATORS.filter((s) => {
+        if (activeMod !== "ALL" && s.m !== activeMod) return false;
+        if (!query) return true;
+        const hay = `${s.m} ${s.esTitle} ${s.enTitle} ${s.esPath} ${s.enPath} ${s.invEs} ${s.invEn}`.toLowerCase();
+        return hay.includes(query);
+      });
+
+      document.getElementById("countIndicator").textContent = c.showing(filtered.length, filtered.length * 2);
+
+      const grid = document.getElementById("simGrid");
+      grid.innerHTML = filtered.map((s) => {
+        const title = currentLang === "es" ? s.esTitle : s.enTitle;
+        const inv = currentLang === "es" ? s.invEs : s.invEn;
+        const esClass = currentLang === "es" ? "launch-btn primary" : "launch-btn";
+        const enClass = currentLang === "en" ? "launch-btn primary" : "launch-btn";
+        return `
+          <article class="sim-card">
+            <div>
+              <div class="sim-meta">
+                <span class="mod-chip">${s.m}</span>
+                <span class="val-chip">L1 ✓ · L3 Queued</span>
+              </div>
+              <h2 class="sim-title">${title}</h2>
+              <p class="sim-invariant">${inv}</p>
+            </div>
+            <div class="sim-actions">
+              <a class="${esClass}" href="${s.esPath}" target="_blank" rel="noopener">${c.openEs}</a>
+              <a class="${enClass}" href="${s.enPath}" target="_blank" rel="noopener">${c.openEn}</a>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    renderPills();
+    renderGrid();
+  </script>
+</body>
+</html>

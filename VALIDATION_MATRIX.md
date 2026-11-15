@@ -1,0 +1,31 @@
+# Physical Validation & Quality Matrix (`M1`–`M12`)
+
+This matrix defines the verification protocol and versioned roadmap for **ElectroLab10.easy**. Every Zenodo release increments either coverage or physical validation depth while keeping `v1.0.0` preserved as the archived baseline precedent.
+
+## Validation Levels (`L1`–`L4`)
+
+| Level | Gate Name | Scope & Acceptance Criteria | Target Release |
+| :--- | :--- | :--- | :--- |
+| **L1** | **Structural & Portal Integrity** | Automated `pytest` CI verifies `31` ES + `31` EN HTML5 files, balanced `<script>` tags, valid `<title>`, zero broken local relative asset paths, and 100% link reachability from `index.html`. | `v1.0.0` (Active) |
+| **L2** | **i18n Audit & Plasma UI Unification** | Repair legacy English escaping/mixed-language labels (e.g., `Sim_M1_Coulomb_Pro.html`, `Sim_M2_*`), inject uniform `10.Easy` Plasma favicons & credits footer (`brand-10easy`), and eliminate console warnings across all 62 canvases. | `v1.1.0` |
+| **L3** | **Analytical Conservation & Singularity Checks** | Cross-check asymptotic limits, symmetries, Gauss/Ampère closed-loop integrals, Lorentz $\mathbf{v} \times \mathbf{B}$ speed invariance, RLC resonance quality factor $Q$, and $1/r^2$ / $1/r$ near-field regularization against Python/NumPy ground truth ($\text{rel. err.} < 10^{-4}$). | `v1.2.0` |
+| **L4** | **Classroom Empirical Benchmark & Lab Parity** | Add embedded self-check HUD badges directly inside each simulator canvas plus experimental comparison presets (Helmholtz coils, RC/RLC oscilloscope traces, Hall probe profiles) with peer/student co-author attribution upon verified delivery. | `v2.0.0` |
+
+---
+
+## Module-by-Module Physical Invariants (`M1`–`M12`)
+
+| Module | Topic | ES / EN Pairs (`31 × 2`) | Key Physical Invariants Targeted (`L3`) | Status (`v1.0.0`) |
+| :--- | :--- | :--- | :--- | :--- |
+| **M1** | Coulomb's Law & Point Charges | `Sim_M1_Cargas.html` / `Sim_M1_Charges.html`<br>`Sim_M1_Coulomb_Basico.html` / `Sim_M1_Coulomb_Basic.html`<br>`Sim_M1_Coulomb_Pro.html` / `Sim_M1_Coulomb_Pro.html` | Newton's 3rd law symmetry ($\mathbf{F}_{12} = -\mathbf{F}_{21}$), superposition principle, $k_e = 8.98755\times 10^9\;\text{N}\cdot\text{m}^2/\text{C}^2$ scaling | **L1 Passed** · L2/L3 Queued |
+| **M2** | Continuous Charge Distributions & Field Lines | `Sim_M2_Anillo.html` / `Sim_M2_Ring.html`<br>`Sim_M2_Arco.html` / `Sim_M2_Arc.html`<br>`Sim_M2_Campo_Vectorial.html` / `Sim_M2_Vector_Field.html`<br>`Sim_M2_Cilindro.html` / `Sim_M2_Cylinder.html`<br>`Sim_M2_Disco.html` / `Sim_M2_Disk.html`<br>`Sim_M2_Semicirculo.html` / `Sim_M2_Semicircle.html`<br>`Sim_M2_Tablero_Distribuciones.html` / `Sim_M2_Board_Distributions.html`<br>`Sim_M2_Tablero_Lineas.html` / `Sim_M2_Board_Lines.html`<br>`Sim_M2_Varilla.html` / `Sim_M2_Rod.html` | On-axis ring $E_z(z) \to k_e Q / z^2$ for $z \gg R$ and $E_z(0)=0$; infinite disk limit $\sigma/(2\varepsilon_0)$ as $R \to \infty$; finite rod asymptotic decay | **L1 Passed** · L2/L3 Queued |
+| **M3** | Electric Flux & Gauss's Law | `Sim_M3_Flujo.html` / `Sim_M3_Flux.html`<br>`Sim_M3_Tabla_Gauss.html` / `Sim_M3_Gauss_Table.html` | Surface integral $\oint \mathbf{E}\cdot d\mathbf{A} = Q_{\text{enc}}/\varepsilon_0$ independent of Gaussian shell radius or deformation | **L1 Passed** · L2/L3 Queued |
+| **M4** | Electric Potential & Equipotentials | `Sim_M4_Equipotenciales.html` / `Sim_M4_Equipotentials.html`<br>`Sim_M4_Potencial_3D.html` / `Sim_M4_Potential_3D.html` | Orthogonality $\mathbf{E} \perp \nabla V = \text{const.}$, conservative line integral $W_{AB} = q(V_A - V_B)$ path independence | **L1 Passed** · L2/L3 Queued |
+| **M5** | Capacitance & Dielectrics | `Sim_M5_Capacitancia.html` / `Sim_M5_Capacitance.html` | Parallel-plate $C = \kappa\varepsilon_0 A/d$, energy $U = \frac{1}{2}CV^2 = Q^2/(2C)$ under isolated vs. battery-connected dielectric insertion | **L1 Passed** · L2/L3 Queued |
+| **M6** | DC Circuits & Pouillet Resistivity | `Sim_M6_CircuitoDC.html` / `Sim_M6_DC_Circuit.html`<br>`Sim_M6_Resistividad.html` / `Sim_M6_Resistivity.html` | Kirchhoff loop & junction conservation ($\sum \Delta V = 0$, $\sum I_{\text{in}} = \sum I_{\text{out}}$), $R = \rho L/A$ scaling | **L1 Passed** · L2/L3 Queued |
+| **M7** | Lorentz Force & Cyclotron Motion | `Sim_M7_Lorentz.html` / `Sim_M7_Lorentz.html` | Kinetic energy conservation ($\mathbf{F}_B \cdot \mathbf{v} = 0$) in pure $\mathbf{B}$; cyclotron radius $r = mv/(|q|B)$ and $\mathbf{E}\times\mathbf{B}$ velocity selector condition $v = E/B$ | **L1 Passed** · L2/L3 Queued |
+| **M8** | Biot–Savart Law | `Sim_M8_BiotSavart_Anillo.html` / `Sim_M8_Biot_Savart_Ring.html`<br>`Sim_M8_BiotSavart_Hilo.html` / `Sim_M8_Biot_Savart_Wire.html` | Long-wire limit $B(r) \to \mu_0 I/(2\pi r)$; on-axis loop center $B(0) = \mu_0 I/(2R)$ and dipole far-field $z^{-3}$ | **L1 Passed** · L2/L3 Queued |
+| **M9** | Ampère's Law & Solenoid | `Sim_M9_Solenoide.html` / `Sim_M9_Solenoid.html`<br>`Sim_M9_Tabla_Ampere.html` / `Sim_M9_Ampere_Table.html` | Interior ideal solenoid $B = \mu_0 n I$; closed-loop $\oint \mathbf{B}\cdot d\mathbf{l} = \mu_0 I_{\text{enc}}$ invariance | **L1 Passed** · L2/L3 Queued |
+| **M10** | Magnetic Flux & Faraday Induction | `Sim_M10_FEM_Movimiento.html` / `Sim_M10_Motional_EMF.html`<br>`Sim_M10_FlujoMagnetico.html` / `Sim_M10_Magnetic_Flux.html` | Motional EMF $\mathcal{E} = B L v$ power balance $P_{\text{mech}} = F_{\text{mag}} v = \mathcal{E}^2/R$; Lenz opposition sign | **L1 Passed** · L2/L3 Queued |
+| **M11** | Maxwell's Equations & EM Waves | `Sim_M11_EcuacionesMaxwell.html` / `Sim_M11_Maxwell_Equations.html`<br>`Sim_M11_OndaEM.html` / `Sim_M11_EM_Wave.html` | Vacuum wave speed $c = 1/\sqrt{\mu_0 \varepsilon_0}$, orthogonality $\mathbf{E}\perp\mathbf{B}\perp\mathbf{k}$, Poynting flux $\mathbf{S} = (\mathbf{E}\times\mathbf{B})/\mu_0$ | **L1 Passed** · L2/L3 Queued |
+| **M12** | LC Oscillations, Phasors & RLC Resonance | `Sim_M12_Fasores.html` / `Sim_M12_Phasors.html`<br>`Sim_M12_OsciladorLC.html` / `Sim_M12_LC_Oscillator.html`<br>`Sim_M12_RLC.html` / `Sim_M12_RLC.html` | Total LC energy conservation $\frac{1}{2}LI^2 + \frac{1}{2}Q^2/C$; resonant angular frequency $\omega_0 = 1/\sqrt{LC}$, phase angle $\tan\phi = (X_L - X_C)/R$ | **L1 Passed** · L2/L3 Queued |
